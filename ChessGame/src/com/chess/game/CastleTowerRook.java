@@ -1,6 +1,6 @@
 package com.chess.game;
 
-import java.util.Arrays;
+//import java.util.Arrays;
 
 public class CastleTowerRook extends ChessBoardBlockPiece {
 
@@ -15,7 +15,7 @@ public class CastleTowerRook extends ChessBoardBlockPiece {
 		}
 	}
 
-	private int     V, pathCount;
+/*	private int     V, pathCount;
     private int[]   path;
     private int[][] graph;
 	public void findHamiltonianCycle(int[][] g)
@@ -39,33 +39,33 @@ public class CastleTowerRook extends ChessBoardBlockPiece {
 	
 	private void solve(int vertex) throws Exception
     {
-        /** solution **/
+        // solution
         if (graph[vertex][0] == 1 && pathCount == V)
             throw new Exception("Solution found");
-        /** all vertices selected but last vertex not linked to 0 **/
+        // all vertices selected but last vertex not linked to 0
         if (pathCount == V)
             return;
         for (int v = 0; v < V; v++)
         {
-            /** if connected **/
+            // if connected
             if (graph[vertex][v] == 1)
             {
-                /** add to path **/
+                // add to path
                 path[pathCount++] = v;
-                /** remove connection **/
+                //remove connection
                 graph[vertex][v] = 0;
                 graph[v][vertex] = 0;
-                /** if vertex not already selected solve recursively **/
+                //if vertex not already selected solve recursively
                 if (false)
                     solve(v);
-                /** restore connection **/
+                //restore connection
                 graph[vertex][v] = 1;
                 graph[v][vertex] = 1;
-                /** remove path **/
+                //remove path
                 path[--pathCount] = -1;
             }
         }
-    }
+    }*/
 	
 	@Override
 	public boolean moveChessBoardPiece(ChessBoardLocation boardLoc) {

@@ -1,6 +1,6 @@
 package com.chess.game;
 
-import java.util.Scanner;
+//import java.util.Scanner;
 
 public class KnightHorsePiece extends ChessBoardBlockPiece {
 
@@ -27,7 +27,7 @@ public class KnightHorsePiece extends ChessBoardBlockPiece {
 		}
 		return false;
 	}
-
+/*
 	public void checkRow() {
 		int m, n, p, q, sum = 0, c, d, k;
 		 
@@ -79,7 +79,8 @@ public class KnightHorsePiece extends ChessBoardBlockPiece {
 	            System.out.print("\n");
 	         }
 	      }
-	}
+	      in.close();
+	}*/
 	@Override
 	protected void updateBoardPieceLocation() {
 		int[] rowMoves = { -2, -1, 1, 2, -2, -1, 1, 2 };

@@ -1,6 +1,6 @@
 package com.chess.game;
 
-import java.util.Scanner;
+//import java.util.Scanner;
 
 public class KingThreaten extends ChessBoardBlockPiece {
 
@@ -41,7 +41,7 @@ public class KingThreaten extends ChessBoardBlockPiece {
 			}
 		}
 	}
-
+/*
 	public void checkRow() {
 		int m, n, p, q, sum = 0, c, d, k;
 		 
@@ -93,7 +93,8 @@ public class KingThreaten extends ChessBoardBlockPiece {
 	            System.out.print("\n");
 	         }
 	      }
-	}
+	      in.close();
+	}*/
 	
 	public ChessBoardBlockPiece check() {
 		ManipulateChessBoard board = gameChessPiecePosition.getManipulateChessBoard();

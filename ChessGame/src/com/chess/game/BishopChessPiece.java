@@ -1,6 +1,6 @@
 package com.chess.game;
 
-import java.util.Scanner;
+//import java.util.Scanner;
 
 public class BishopChessPiece extends ChessBoardBlockPiece {
 
@@ -24,7 +24,9 @@ public class BishopChessPiece extends ChessBoardBlockPiece {
 			boolean res = checkIndexOfBoard(currentChessBoardLocation, location) && super.moveChessBoardPiece(location);
 			return res;
 		}
+		return false;
 		
+		/*
 		boolean rowIndex=false;
 		if(rowIndex) {
 			int n;
@@ -66,9 +68,7 @@ public class BishopChessPiece extends ChessBoardBlockPiece {
 	            System.out.println();
 	        }
 	        input.close();
-		}
-		
-		return false;
+		}*/
 	}
 
 	@Override

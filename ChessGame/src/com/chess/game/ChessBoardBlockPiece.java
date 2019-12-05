@@ -101,8 +101,6 @@ public abstract class ChessBoardBlockPiece {
 				currentChessBoardLocation.getChessBoardRowIndex() + updateVertical,
 				currentChessBoardLocation.getChessBoardColumnIndex());
 
-		int verticalUpdate = updateVertical;
-
 		while (ManipulateChessBoard.locationInBounds(boardLocation)) {
 			ChessBoardBlockPiece verticalPiece = gameChessPiecePosition.getManipulateChessBoard()
 					.getPieceAt(boardLocation);

@@ -1,5 +1,5 @@
 package com.chess.game;
-import java.util.Scanner;
+//import java.util.Scanner;
 
 import com.chess.display.DisplayEngine;
 
@@ -15,7 +15,7 @@ public class EntryProgram {
 	
 	public static void main(String[] args) {
 		i = new EntryProgram();
-		i.OldGameLoop();
+		//i.OldGameLoop();
 	}
 	
 	
@@ -74,7 +74,7 @@ public class EntryProgram {
 	
 	
 	
-
+/*
 	ChessBoardBlockPiece oldGetCurrentPiecePosition(ChessPiecePosition chessGame, String currentPlayer) {
 		Scanner scanner = new Scanner(System.in);
 		String input;
@@ -98,8 +98,8 @@ public class EntryProgram {
 				System.out.println("Invalid piece selected, Please select your Piece.");
 			}
 		}
-	}
-
+	}*/
+/*
 	ChessBoardLocation oldGetNewLocation() {
 		Scanner scanner = new Scanner(System.in);
 		String rowAndColumnInput;
@@ -117,17 +117,17 @@ public class EntryProgram {
 				return newLocation;
 			}
 		}
-	}
-
+	}*/
+/*
 	ChessBoardLocation oldSplitRowAndColumn(String rowAndColumnInput) {
 
 		int chessRowLocation = Integer.parseInt(rowAndColumnInput.split(",")[0].trim());
 		int chessColumnLocation = Integer.parseInt(rowAndColumnInput.split(",")[1].trim());
 
 		return new ChessBoardLocation(chessRowLocation, chessColumnLocation);
-	}
+	}*/
 
-	
+/*
 	void OldGameLoop()
 	{
 		ChessBoardLocation chessBoardNewLocation;
@@ -187,7 +187,5 @@ public class EntryProgram {
 				e.printStackTrace();
 			}
 		}
-	}
-	
-	
+	}*/
 }

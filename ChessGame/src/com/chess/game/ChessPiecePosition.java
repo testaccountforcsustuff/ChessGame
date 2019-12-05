@@ -19,39 +19,29 @@ public class ChessPiecePosition {
 			piecePosition = -1;
 		else
 			piecePosition = 1;
-		ChessBoardBlockPiece rookPostionOnBoardPlayer1 = new CastleTowerRook(playerName,
-				new ChessBoardLocation(chessBoardIndex, pieceIncInColumn), this);
-		ChessBoardBlockPiece rookPostionOnBoardPlayer2 = new CastleTowerRook(playerName,
-				new ChessBoardLocation(chessBoardIndex, 7 - pieceIncInColumn), this);
+		new CastleTowerRook(playerName, new ChessBoardLocation(chessBoardIndex, pieceIncInColumn), this);
+		new CastleTowerRook(playerName, new ChessBoardLocation(chessBoardIndex, 7 - pieceIncInColumn), this);
 		pieceIncInColumn += 1;
 
-		ChessBoardBlockPiece knightPostionOnBoardPlayer1 = new KnightHorsePiece(playerName,
-				new ChessBoardLocation(chessBoardIndex, pieceIncInColumn), this);
-		ChessBoardBlockPiece knightPostionOnBoardPlayer2 = new KnightHorsePiece(playerName,
-				new ChessBoardLocation(chessBoardIndex, 7 - pieceIncInColumn), this);
+		new KnightHorsePiece(playerName, new ChessBoardLocation(chessBoardIndex, pieceIncInColumn), this);
+		new KnightHorsePiece(playerName, new ChessBoardLocation(chessBoardIndex, 7 - pieceIncInColumn), this);
 		pieceIncInColumn += 1;
 
-		ChessBoardBlockPiece bishopPostionOnBoardPlayer1 = new BishopChessPiece(playerName,
-				new ChessBoardLocation(chessBoardIndex, pieceIncInColumn), this);
-		ChessBoardBlockPiece bishopPostionOnBoardPlayer2 = new BishopChessPiece(playerName,
-				new ChessBoardLocation(chessBoardIndex, 7 - pieceIncInColumn), this);
+		new BishopChessPiece(playerName, new ChessBoardLocation(chessBoardIndex, pieceIncInColumn), this);
+		new BishopChessPiece(playerName, new ChessBoardLocation(chessBoardIndex, 7 - pieceIncInColumn), this);
 		pieceIncInColumn += 1;
 
 		if (playerName.equalsIgnoreCase("White")) {
-			player1KingPiece = new KingThreaten(playerName, new ChessBoardLocation(chessBoardIndex, pieceIncInColumn),
-					this);
+			player1KingPiece = new KingThreaten(playerName, new ChessBoardLocation(chessBoardIndex, pieceIncInColumn), this);
 		} else {
-			player2KingPiece = new KingThreaten(playerName, new ChessBoardLocation(chessBoardIndex, pieceIncInColumn),
-					this);
+			player2KingPiece = new KingThreaten(playerName, new ChessBoardLocation(chessBoardIndex, pieceIncInColumn), this);
 		}
 
-		ChessBoardBlockPiece chessPiece = new PowerfulQueen(playerName,
-				new ChessBoardLocation(chessBoardIndex, 7 - pieceIncInColumn), this);
+		new PowerfulQueen(playerName, new ChessBoardLocation(chessBoardIndex, 7 - pieceIncInColumn), this);
 
 		int maxIndex = 8;
 		for (int index = 0; index < maxIndex; index++) {
-			ChessBoardBlockPiece boardPiece = new PawnInfanty(playerName,
-					new ChessBoardLocation(chessBoardIndex + piecePosition, index), this);
+			new PawnInfanty(playerName, new ChessBoardLocation(chessBoardIndex + piecePosition, index), this);
 		}
 	}
 
