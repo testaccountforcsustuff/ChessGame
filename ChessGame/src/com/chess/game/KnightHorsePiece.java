@@ -6,10 +6,10 @@ public class KnightHorsePiece extends ChessBoardBlockPiece {
 
 	public KnightHorsePiece(String owner, ChessBoardLocation initialLocation, ChessPiecePosition game) {
 		super(owner, initialLocation, game);
-		if (owner.equalsIgnoreCase("Player1")) {
-			pieceUniqueId = 'N';
-		} else if (owner.equalsIgnoreCase("Player2")) {
-			pieceUniqueId = 'n';
+		if (owner.equalsIgnoreCase("White")) {
+			pieceUniqueId = '\u2658';
+		} else if (owner.equalsIgnoreCase("Black")) {
+			pieceUniqueId = '\u265E';
 		}
 	}
 

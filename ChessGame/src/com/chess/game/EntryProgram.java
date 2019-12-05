@@ -5,11 +5,12 @@ import com.chess.display.DisplayEngine;
 
 public class EntryProgram {
 	public static EntryProgram i;
-	public ChessPiecePosition chessPiecePosition;
+	ChessPiecePosition chessPiecePosition;
+	ChessBoardBlockPiece currentPiece;
+	KingThreaten kingCheckMate;
 	DisplayEngine display;
-	public boolean currentTurn;
+	public String currentTurn;
 	public boolean check;
-	public boolean checkmate;
 	
 	
 	public static void main(String[] args) {
@@ -22,13 +23,115 @@ public class EntryProgram {
 	EntryProgram()
 	{
 		chessPiecePosition = new ChessPiecePosition();
-		currentTurn = false; //white is false, black is true
+		currentTurn = "White";
 		boolean check = false;
 		boolean checkmate = false;
-		DisplayEngine display = new DisplayEngine();
+		display = new DisplayEngine(chessPiecePosition.getManipulateChessBoard());
 		display.setVisible( true );
 	}
 	
+	
+	public void selectPiece(ChessBoardLocation location)
+	{
+		if(currentPiece != null)
+		{
+			move(location);
+			return;
+		}
+		System.out.println("select");
+		
+		ChessBoardBlockPiece piece = chessPiecePosition.getManipulateChessBoard().getPieceAt(location);
+		if(piece == null || !currentTurn.equals(piece.getPlayerNumber()))
+			return;
+		currentPiece = piece;
+		display.updateSelectPiece( location );
+		System.out.println("valid");
+	}
+	
+	private void move(ChessBoardLocation location)
+	{
+		boolean checkmate = false;
+		ChessBoardLocation from = currentPiece.getCurrentChessBoardLocation();
+
+		if (currentPiece.moveChessBoardPiece(location))
+		{
+			currentTurn = (currentTurn.equals("White")) ? "Black" : "White";
+		}
+		else
+		{
+			display.updateSelectPiece(null);
+			currentPiece = null;
+			return;
+		}
+		
+			System.out.println("aaa");
+		
+		if (chessPiecePosition.getPlayer1KingPiece().check() != null || chessPiecePosition.getPlayer1KingPiece().check() != null)
+			checkmate = true;
+		display.updateMovePiece(from, location, check, checkmate);
+		//display.updateBoard( chessPiecePosition.getManipulateChessBoard() );
+		currentPiece = null;
+	}
+	
+	
+	
+	
+	
+	
+	
+
+	ChessBoardBlockPiece oldGetCurrentPiecePosition(ChessPiecePosition chessGame, String currentPlayer) {
+		Scanner scanner = new Scanner(System.in);
+		String input;
+		ChessBoardLocation currentLocation;
+		ChessBoardBlockPiece currentPiece;
+
+		while (true) {
+			System.out.println("Move piece in chess board, Enter Row, Column: ");
+			input = scanner.nextLine();
+			currentLocation = oldSplitRowAndColumn(input);
+			if (!ManipulateChessBoard.locationInBounds(currentLocation)) {
+				System.out.println("Invalid location, Location not on board. Please try again.");
+				continue;
+			}
+			currentPiece = chessGame.getManipulateChessBoard().getPieceAt(currentLocation);
+			if (currentPiece == null) {
+				System.out.println("Invalid piece selection.");
+			} else if (currentPiece.getPlayerNumber().equalsIgnoreCase(currentPlayer)) {
+				return currentPiece;
+			} else {
+				System.out.println("Invalid piece selected, Please select your Piece.");
+			}
+		}
+	}
+
+	ChessBoardLocation oldGetNewLocation() {
+		Scanner scanner = new Scanner(System.in);
+		String rowAndColumnInput;
+
+		ChessBoardLocation newLocation;
+
+		while (true) {
+			System.out.println("Move piece in Chess board, Enter Row, Column: ");
+			rowAndColumnInput = scanner.nextLine();
+			newLocation = oldSplitRowAndColumn(rowAndColumnInput);
+
+			if (!ManipulateChessBoard.locationInBounds(newLocation)) {
+				System.out.println("Invalid location selected, Please select valid location.");
+			} else {
+				return newLocation;
+			}
+		}
+	}
+
+	ChessBoardLocation oldSplitRowAndColumn(String rowAndColumnInput) {
+
+		int chessRowLocation = Integer.parseInt(rowAndColumnInput.split(",")[0].trim());
+		int chessColumnLocation = Integer.parseInt(rowAndColumnInput.split(",")[1].trim());
+
+		return new ChessBoardLocation(chessRowLocation, chessColumnLocation);
+	}
+
 	
 	void OldGameLoop()
 	{
@@ -61,14 +164,15 @@ public class EntryProgram {
 						System.out.println("King Checkmate...!");
 					}
 
-					currentPiece = getCurrentPiecePosition(chessPiecePosition, currentPlayer);
-					chessBoardNewLocation = getNewLocation();
+					currentPiece = oldGetCurrentPiecePosition(chessPiecePosition, currentPlayer);
+					chessBoardNewLocation = oldGetNewLocation();
 
 					if (currentPiece.moveChessBoardPiece(chessBoardNewLocation)) {
 						currentPlayer = (currentPlayer.equalsIgnoreCase("Player1")) ? "Player2" : "Player1";
 					} else {
 						System.out.println("Move was invalid, try again.");
 					}
+					
 				} else if (playerInputChoice.equalsIgnoreCase("Q")) {
 					isGameFinish = true;
 					System.out.println("Close the game");
@@ -91,56 +195,4 @@ public class EntryProgram {
 	}
 	
 	
-
-	ChessBoardBlockPiece getCurrentPiecePosition(ChessPiecePosition chessGame, String currentPlayer) {
-		Scanner scanner = new Scanner(System.in);
-		String input;
-		ChessBoardLocation currentLocation;
-		ChessBoardBlockPiece currentPiece;
-
-		while (true) {
-			System.out.println("Move piece in chess board, Enter Row, Column: ");
-			input = scanner.nextLine();
-			currentLocation = splitRowAndColumn(input);
-			if (!ManipulateChessBoard.locationInBounds(currentLocation)) {
-				System.out.println("Invalid location, Location not on board. Please try again.");
-				continue;
-			}
-			currentPiece = chessGame.getManipulateChessBoard().getPieceAt(currentLocation);
-			if (currentPiece == null) {
-				System.out.println("Invalid piece selection.");
-			} else if (currentPiece.getPlayerNumber().equalsIgnoreCase(currentPlayer)) {
-				return currentPiece;
-			} else {
-				System.out.println("Invalid piece selected, Please select your Piece.");
-			}
-		}
-	}
-
-	ChessBoardLocation getNewLocation() {
-		Scanner scanner = new Scanner(System.in);
-		String rowAndColumnInput;
-
-		ChessBoardLocation newLocation;
-
-		while (true) {
-			System.out.println("Move piece in Chess board, Enter Row, Column: ");
-			rowAndColumnInput = scanner.nextLine();
-			newLocation = splitRowAndColumn(rowAndColumnInput);
-
-			if (!ManipulateChessBoard.locationInBounds(newLocation)) {
-				System.out.println("Invalid location selected, Please select valid location.");
-			} else {
-				return newLocation;
-			}
-		}
-	}
-
-	ChessBoardLocation splitRowAndColumn(String rowAndColumnInput) {
-
-		int chessRowLocation = Integer.parseInt(rowAndColumnInput.split(",")[0].trim());
-		int chessColumnLocation = Integer.parseInt(rowAndColumnInput.split(",")[1].trim());
-
-		return new ChessBoardLocation(chessRowLocation, chessColumnLocation);
-	}
 }

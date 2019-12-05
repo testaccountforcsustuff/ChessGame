@@ -5,10 +5,10 @@ public class PowerfulQueen extends ChessBoardBlockPiece {
 	public PowerfulQueen(String playerMark, ChessBoardLocation pieceInitialLocation,
 			ChessPiecePosition pieceInitialPosition) {
 		super(playerMark, pieceInitialLocation, pieceInitialPosition);
-		if (playerMark.equalsIgnoreCase("Player1")) {
-			pieceUniqueId = 'Q';
-		} else if (playerMark.equalsIgnoreCase("Player2")) {
-			pieceUniqueId = 'q';
+		if (playerMark.equalsIgnoreCase("White")) {
+			pieceUniqueId = '\u2655';
+		} else if (playerMark.equalsIgnoreCase("Black")) {
+			pieceUniqueId = '\u265B';
 		}
 	}
 

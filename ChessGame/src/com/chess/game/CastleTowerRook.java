@@ -8,10 +8,10 @@ public class CastleTowerRook extends ChessBoardBlockPiece {
 
 		super(playerName, initialPosition, piecePosition);
 
-		if (playerName.equalsIgnoreCase("Player1")) {
-			pieceUniqueId = 'R';
-		} else if (playerName.equalsIgnoreCase("Player2")) {
-			pieceUniqueId = 'r';
+		if (playerName.equalsIgnoreCase("White")) {
+			pieceUniqueId = '\u2656';
+		} else if (playerName.equalsIgnoreCase("Black")) {
+			pieceUniqueId = '\u265C';
 		}
 	}
 

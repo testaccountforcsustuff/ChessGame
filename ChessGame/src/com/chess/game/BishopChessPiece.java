@@ -6,10 +6,10 @@ public class BishopChessPiece extends ChessBoardBlockPiece {
 
 	public BishopChessPiece(String owner, ChessBoardLocation initialLocation, ChessPiecePosition game) {
 		super(owner, initialLocation, game);
-		if (owner.equalsIgnoreCase("Player1")) {
-			pieceUniqueId = 'B';
-		} else if (owner.equalsIgnoreCase("Player2")) {
-			pieceUniqueId = 'b';
+		if (owner.equalsIgnoreCase("White")) {
+			pieceUniqueId = '\u2657';
+		} else if (owner.equalsIgnoreCase("Black")) {
+			pieceUniqueId = '\u265D';
 		}
 	}
 

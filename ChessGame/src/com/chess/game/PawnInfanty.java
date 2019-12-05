@@ -7,11 +7,11 @@ public class PawnInfanty extends ChessBoardBlockPiece {
 
 	public PawnInfanty(String owner, ChessBoardLocation initialLocation, ChessPiecePosition game) {
 		super(owner, initialLocation, game);
-		if (owner.equalsIgnoreCase("Player1")) {
-			pieceUniqueId = 'P';
+		if (owner.equalsIgnoreCase("White")) {
+			pieceUniqueId = '\u2659';
 			one = 1;
-		} else if (owner.equalsIgnoreCase("Player2")) {
-			pieceUniqueId = 'p';
+		} else if (owner.equalsIgnoreCase("Black")) {
+			pieceUniqueId = '\u265F';
 			one = -1;
 		}
 		isFirstMove = true;

@@ -8,8 +8,8 @@ public class ChessPiecePosition {
 
 	public ChessPiecePosition() {
 		manipulateChessBoard = new ManipulateChessBoard();
-		placePieceOnBoard(0, "Player1");
-		placePieceOnBoard(7, "Player2");
+		placePieceOnBoard(0, "White");
+		placePieceOnBoard(7, "Black");
 	}
 
 	void placePieceOnBoard(int chessBoardIndex, String playerName) {
@@ -37,7 +37,7 @@ public class ChessPiecePosition {
 				new ChessBoardLocation(chessBoardIndex, 7 - pieceIncInColumn), this);
 		pieceIncInColumn += 1;
 
-		if (playerName.equalsIgnoreCase("Player1")) {
+		if (playerName.equalsIgnoreCase("White")) {
 			player1KingPiece = new KingThreaten(playerName, new ChessBoardLocation(chessBoardIndex, pieceIncInColumn),
 					this);
 		} else {

@@ -6,10 +6,10 @@ public class KingThreaten extends ChessBoardBlockPiece {
 
 	public KingThreaten(String owner, ChessBoardLocation initialLocation, ChessPiecePosition game) {
 		super(owner, initialLocation, game);
-		if (owner.equalsIgnoreCase("Player1")) {
-			pieceUniqueId = 'K';
-		} else if (owner.equalsIgnoreCase("Player2")) {
-			pieceUniqueId = 'k';
+		if (owner.equalsIgnoreCase("White")) {
+			pieceUniqueId = '\u2654';
+		} else if (owner.equalsIgnoreCase("Black")) {
+			pieceUniqueId = '\u265A';
 		}
 	}
 

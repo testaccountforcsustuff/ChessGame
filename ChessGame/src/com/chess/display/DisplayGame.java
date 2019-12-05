@@ -4,11 +4,17 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+
+import com.chess.game.ChessBoardBlockPiece;
+import com.chess.game.ChessBoardLocation;
+import com.chess.game.ManipulateChessBoard;
+
 import java.awt.GridBagLayout;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.Font;
+import java.awt.Color;
 
 public class DisplayGame extends JPanel
 {
@@ -36,12 +42,13 @@ public class DisplayGame extends JPanel
 	JOptionPane endResult;
 	JLabel endText;
 	JButton endExit;
+	ChessBoardLocation selected;
 	//"\u2659\u2659\u2659\u2659\u2659\u2659\u2659\u2659\u2658\u2658\u2657\u2657\u2656\u2656\u2655"
 	
 	/**
 	 * Create the panel.
 	 */
-	public DisplayGame(DisplayEngine engine)
+	public DisplayGame(DisplayEngine engine, ManipulateChessBoard board)
 	{
 		GridBagConstraints gbConstraints = new GridBagConstraints();
 		gbConstraints.insets = insets;
@@ -210,12 +217,67 @@ public class DisplayGame extends JPanel
 				gbConstraints.gridy = j;
 				boardPanel.add(boardButtons[i][j], gbConstraints);
 			}
+		
+		updateBoard(board);
 	}
 	
-	public void updateBoard()
+	public void updateBoard(ManipulateChessBoard board)
 	{
-		JButton btnNewButton = new JButton();
-		btnNewButton.setText("\u265B");
-		btnNewButton.setToolTipText("Queen");
+		ChessBoardLocation location = new ChessBoardLocation(0,0);
+		ChessBoardBlockPiece piece;
+		
+		for(int i = 0; i < width; i++)
+		{
+			location.setChessBoardColumnIndex(i);
+			for(int j = 0; j < width; j++)
+			{
+				location.setChessBoardRowIndex(j);
+				piece = board.getPieceAt( location );
+				if(piece != null)
+					boardButtons[i][j].setText(piece.getPieceUniqueId()+"");
+				else
+					boardButtons[i][j].setText("");
+			}
+		}
+	}
+	
+	public void updateBoard(ChessBoardLocation from, ChessBoardLocation to)
+	{
+		int xF = from.getChessBoardColumnIndex();
+		int yF = from.getChessBoardRowIndex();
+		int xT = to.getChessBoardColumnIndex();
+		int yT = to.getChessBoardRowIndex();
+		
+		System.out.println(xF + ", " + yF + "    " + xT + ", " + yT);
+		
+		boardButtons[xT][yT].setText(boardButtons[xF][yF].getText());
+		boardButtons[xF][yF].setText("");
+		boardButtons[xF][yF].setBackground(null);
+		boardButtons[xF][yF].setContentAreaFilled(true);
+		boardButtons[xF][yF].setOpaque(false);
+	}
+	
+	public void updateBoard(ChessBoardLocation location)
+	{
+		int x, y;
+		
+		if(selected != null)
+		{
+			x = selected.getChessBoardColumnIndex();
+			y = selected.getChessBoardRowIndex();
+			boardButtons[x][y].setBackground(null);
+			boardButtons[x][x].setContentAreaFilled(true);
+			boardButtons[x][y].setOpaque(false);
+			selected = null;
+		}
+		if(location != null)
+		{
+			x = location.getChessBoardColumnIndex();
+			y = location.getChessBoardRowIndex();
+			boardButtons[x][y].setBackground(Color.YELLOW);
+			boardButtons[x][x].setContentAreaFilled(false);
+			boardButtons[x][y].setOpaque(true);
+			selected = location;
+		}
 	}
 }
