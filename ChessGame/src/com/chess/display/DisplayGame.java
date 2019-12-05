@@ -31,18 +31,18 @@ public class DisplayGame extends JPanel
 	private static final Dimension horizontalPanelMinDimension = new Dimension(500,60);
 	private static final Insets insets = new Insets(5,5,5,5);
 
-	JButton[][] boardButtons;
-	JButton[] pieces;
-	JLabel[] horizontal;
-	JLabel[] vertical;
-	JLabel deadWhite;
-	JLabel deadBlack;
-	JLabel turn;
-	JLabel check;
-	JOptionPane endResult;
-	JLabel endText;
-	JButton endExit;
-	ChessBoardLocation selected;
+	private JButton[][] boardButtons;
+	private JButton[] pieces;
+	private JLabel[] horizontal;
+	private JLabel[] vertical;
+	private JLabel deadWhite;
+	private JLabel deadBlack;
+	private JLabel turn;
+	private JLabel check;
+	private JOptionPane endResult;
+	private JLabel endText;
+	private JButton endExit;
+	private ChessBoardLocation selected;
 	//"\u2659\u2659\u2659\u2659\u2659\u2659\u2659\u2659\u2658\u2658\u2657\u2657\u2656\u2656\u2655"
 
 	/**
@@ -51,7 +51,7 @@ public class DisplayGame extends JPanel
 	 * @param board The gameboard to initialize off
 	 * @author James Whitman
 	 */
-	public DisplayGame(DisplayEngine engine, ManipulateChessBoard board)
+	DisplayGame(DisplayEngine engine, ManipulateChessBoard board)
 	{
 		GridBagConstraints gbConstraints = new GridBagConstraints();
 		gbConstraints.insets = insets;
@@ -226,11 +226,12 @@ public class DisplayGame extends JPanel
 	 * @param board The board to update the display state with
 	 * @author James Whitman
 	 */
-	public void updateBoard(ManipulateChessBoard board)
+	protected void updateBoard(ManipulateChessBoard board)
 	{
 		ChessBoardLocation location = new ChessBoardLocation(0,0);
 		ChessBoardBlockPiece piece;
 		
+		//loops through the entire gameboard and updates the text
 		for(int i = 0; i < width; i++)
 		{
 			location.setChessBoardColumnIndex(i);
@@ -253,7 +254,7 @@ public class DisplayGame extends JPanel
 	 * @param turnstr The next turn the game is on
 	 * @author James Whitman
 	 */
-	public void updateBoard(ChessBoardLocation from, ChessBoardLocation to, String turnstr)
+	protected void updateBoard(ChessBoardLocation from, ChessBoardLocation to, String turnstr)
 	{
 		int xF = from.getChessBoardColumnIndex();
 		int yF = from.getChessBoardRowIndex();
@@ -262,14 +263,18 @@ public class DisplayGame extends JPanel
 		
 		System.out.println(xF + ", " + yF + "    " + xT + ", " + yT);
 		
+		//moves the piece to its new spot
 		String taken = boardButtons[xT][yT].getText();
 		boardButtons[xT][yT].setText(boardButtons[xF][yF].getText());
+		//clears the old spot
 		boardButtons[xF][yF].setText("");
 		boardButtons[xF][yF].setBackground(null);
 		boardButtons[xF][yF].setContentAreaFilled(true);
 		boardButtons[xF][yF].setOpaque(false);
+		//swaps the turn
 		turn.setText("<html>Turn:<br/>"+turnstr+"</html>");
 		
+		//appends the taken piece to the appropriate dead labels
 		if(turnstr.equals("Black"))
 			deadWhite.setText(deadWhite.getText() + taken);
 		else
@@ -281,10 +286,11 @@ public class DisplayGame extends JPanel
 	 * @param location The location of the piece to highlight
 	 * @author James Whitman
 	 */
-	public void updateBoard(ChessBoardLocation location)
+	protected void updateBoard(ChessBoardLocation location)
 	{
 		int x, y;
 		
+		//unhighlights spot
 		if(selected != null)
 		{
 			x = selected.getChessBoardColumnIndex();
@@ -294,6 +300,7 @@ public class DisplayGame extends JPanel
 			boardButtons[x][y].setOpaque(false);
 			selected = null;
 		}
+		//highlights spot
 		if(location != null)
 		{
 			x = location.getChessBoardColumnIndex();
@@ -311,7 +318,7 @@ public class DisplayGame extends JPanel
 	 * @param checkmate Whether the game is in a checkmate state.
 	 * @author James Whitman
 	 */
-	public void updateBoard(boolean checkbool, boolean checkmate)
+	protected void updateBoard(boolean checkbool, boolean checkmate)
 	{
 		if(checkmate)
 		{

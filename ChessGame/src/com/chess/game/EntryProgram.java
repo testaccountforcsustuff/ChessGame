@@ -3,23 +3,33 @@ package com.chess.game;
 
 import com.chess.display.DisplayEngine;
 
+/**
+ * Class that handles the main gamestate and also entry. Links the Display and Gamestate together.
+ * @author James Whitman
+ * older methods made by various authors
+ */
 public class EntryProgram {
 	public static EntryProgram i;
-	ChessPiecePosition chessPiecePosition;
-	ChessBoardBlockPiece currentPiece;
-	KingThreaten kingCheckMate;
-	DisplayEngine display;
-	public String currentTurn;
-	public boolean check;
+	private ChessPiecePosition chessPiecePosition;
+	private ChessBoardBlockPiece currentPiece;
+	private KingThreaten kingCheckMate;
+	private DisplayEngine display;
+	private String currentTurn;
+	private boolean check;
 	
-	
+	/**
+	 * The main entry method for the entire project.
+	 * @param args
+	 * @author James Whitman
+	 */
 	public static void main(String[] args) {
 		i = new EntryProgram();
 		//i.OldGameLoop();
 	}
 	
-	
-	
+	/**
+	 * The initializer for the EntryProgram class, producing a singleton object.
+	 */
 	EntryProgram()
 	{
 		chessPiecePosition = new ChessPiecePosition();
@@ -29,7 +39,11 @@ public class EntryProgram {
 		display.setVisible( true );
 	}
 	
-	
+	/**
+	 * Selects a piece on a board and tells the engine that its selected and the display to update.
+	 * @param location The location of the piece to select.
+	 * @author James Whitman
+	 */
 	public void selectPiece(ChessBoardLocation location)
 	{
 		if(currentPiece != null)
@@ -45,6 +59,12 @@ public class EntryProgram {
 		display.updateSelectPiece( location );
 	}
 	
+	/**
+	 * Tells the engine to move a piece on the board and updates the display.
+	 * @param location The location to move a piece to.
+	 * @param currentPiece The prior selected piece, global variable.
+	 * @author James Whitman
+	 */
 	private void move(ChessBoardLocation location)
 	{
 		boolean checkmate = false;
