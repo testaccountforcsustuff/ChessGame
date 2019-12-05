@@ -24,8 +24,7 @@ public class EntryProgram {
 	{
 		chessPiecePosition = new ChessPiecePosition();
 		currentTurn = "White";
-		boolean check = false;
-		boolean checkmate = false;
+		check = false;
 		display = new DisplayEngine(chessPiecePosition.getManipulateChessBoard());
 		display.setVisible( true );
 	}
@@ -38,14 +37,12 @@ public class EntryProgram {
 			move(location);
 			return;
 		}
-		System.out.println("select");
 		
 		ChessBoardBlockPiece piece = chessPiecePosition.getManipulateChessBoard().getPieceAt(location);
 		if(piece == null || !currentTurn.equals(piece.getPlayerNumber()))
 			return;
 		currentPiece = piece;
 		display.updateSelectPiece( location );
-		System.out.println("valid");
 	}
 	
 	private void move(ChessBoardLocation location)
@@ -64,11 +61,9 @@ public class EntryProgram {
 			return;
 		}
 		
-			System.out.println("aaa");
-		
 		if (chessPiecePosition.getPlayer1KingPiece().check() != null || chessPiecePosition.getPlayer1KingPiece().check() != null)
 			checkmate = true;
-		display.updateMovePiece(from, location, check, checkmate);
+		display.updateMovePiece(from, location, currentTurn, check, checkmate);
 		//display.updateBoard( chessPiecePosition.getManipulateChessBoard() );
 		currentPiece = null;
 	}

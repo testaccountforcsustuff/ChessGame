@@ -54,7 +54,7 @@ public class DisplayGame extends JPanel
 		gbConstraints.insets = insets;
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{60, 500, 60, 0};
-		gridBagLayout.rowHeights = new int[]{48, 60, 500, 48, 52, 0};
+		gridBagLayout.rowHeights = new int[]{53, 60, 500, 53, 53, 0};
 		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
@@ -241,7 +241,7 @@ public class DisplayGame extends JPanel
 		}
 	}
 	
-	public void updateBoard(ChessBoardLocation from, ChessBoardLocation to)
+	public void updateBoard(ChessBoardLocation from, ChessBoardLocation to, String turnstr)
 	{
 		int xF = from.getChessBoardColumnIndex();
 		int yF = from.getChessBoardRowIndex();
@@ -250,11 +250,18 @@ public class DisplayGame extends JPanel
 		
 		System.out.println(xF + ", " + yF + "    " + xT + ", " + yT);
 		
+		String taken = boardButtons[xT][yT].getText();
 		boardButtons[xT][yT].setText(boardButtons[xF][yF].getText());
 		boardButtons[xF][yF].setText("");
 		boardButtons[xF][yF].setBackground(null);
 		boardButtons[xF][yF].setContentAreaFilled(true);
 		boardButtons[xF][yF].setOpaque(false);
+		turn.setText("<html>Turn:<br/>"+turnstr+"</html>");
+		
+		if(turnstr.equals("Black"))
+			deadWhite.setText(deadWhite.getText() + taken);
+		else
+			deadBlack.setText(deadBlack.getText() + taken);
 	}
 	
 	public void updateBoard(ChessBoardLocation location)
@@ -279,5 +286,21 @@ public class DisplayGame extends JPanel
 			boardButtons[x][y].setOpaque(true);
 			selected = location;
 		}
+	}
+	
+	public void updateBoard(boolean checkbool, boolean checkmate)
+	{
+		if(checkmate)
+		{
+			check.setText("Checkmate");
+			check.setForeground(Color.RED);
+		}
+		else if(checkbool)
+		{
+			check.setText("Check");
+			check.setForeground(Color.BLUE);
+		}
+		else
+			check.setText("");
 	}
 }

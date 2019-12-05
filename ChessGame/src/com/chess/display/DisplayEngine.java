@@ -70,8 +70,8 @@ public class DisplayEngine extends JFrame implements ActionListener
 		gamePanel.updateBoard(location);
 	}
 	
-	public void updateMovePiece(ChessBoardLocation from, ChessBoardLocation to, boolean check, boolean checkmate)
+	public void updateMovePiece(ChessBoardLocation from, ChessBoardLocation to, String turnstr, boolean check, boolean checkmate)
 	{
-		gamePanel.updateBoard(from, to);
+		gamePanel.updateBoard(from, to, turnstr);
 	}
 }
