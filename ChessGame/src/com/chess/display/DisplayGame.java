@@ -44,9 +44,12 @@ public class DisplayGame extends JPanel
 	JButton endExit;
 	ChessBoardLocation selected;
 	//"\u2659\u2659\u2659\u2659\u2659\u2659\u2659\u2659\u2658\u2658\u2657\u2657\u2656\u2656\u2655"
-	
+
 	/**
-	 * Create the panel.
+	 * Initializes a DisplayGame panel
+	 * @param engine The actionlistener that buttons use
+	 * @param board The gameboard to initialize off
+	 * @author James Whitman
 	 */
 	public DisplayGame(DisplayEngine engine, ManipulateChessBoard board)
 	{
@@ -59,6 +62,7 @@ public class DisplayGame extends JPanel
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 		
+		//sets up the labels for holding captured pieces
 		deadWhite = new JLabel();
 		deadWhite.setFont(piecesFont);
 		GridBagConstraints deadWhiteConstraints = new GridBagConstraints();
@@ -75,6 +79,7 @@ public class DisplayGame extends JPanel
 		deadBlackConstraints.gridy = 3;
 		add(deadBlack, deadBlackConstraints);
 		
+		//sets up the label for displaying if the game is in a check state
 		check = new JLabel();
 		check.setFont(boardFont);
 		GridBagConstraints checkConstraints = new GridBagConstraints();
@@ -83,6 +88,7 @@ public class DisplayGame extends JPanel
 		checkConstraints.gridy = 4;
 		add(check, checkConstraints);
 		
+		//sets up the player turn label
 		turn = new JLabel("<html>Turn:<br/>White</html>");
 		turn.setFont(textFont);
 		GridBagConstraints turnConstraints = new GridBagConstraints();
@@ -91,7 +97,7 @@ public class DisplayGame extends JPanel
 		turnConstraints.gridy = 1;
 		add(turn, turnConstraints);
 
-
+		//sets up the grid markers above
 		JPanel horizontalPanel = new JPanel();
 		horizontalPanel.setMinimumSize(horizontalPanelMinDimension);
 		horizontalPanel.setPreferredSize(horizontalPanelMinDimension);
@@ -104,10 +110,7 @@ public class DisplayGame extends JPanel
 		gbc_horizontalPanel.gridy = 1;
 		add(horizontalPanel, gbc_horizontalPanel);
 		
-		
-		
-		
-		
+		//sets up the grid markers to the side
 		JPanel verticalPanel = new JPanel();
 		verticalPanel.setMinimumSize(verticalPanelMinDimension);
 		verticalPanel.setPreferredSize(verticalPanelMinDimension);
@@ -120,10 +123,7 @@ public class DisplayGame extends JPanel
 		gbc_verticalPanel.gridy = 2;
 		add(verticalPanel, gbc_verticalPanel);
 		
-		
-		
-		
-		
+		//sets up the gameboard panel
 		JPanel boardPanel = new JPanel();
 		boardPanel.setMinimumSize(boardPanelMinDimension);
 		boardPanel.setPreferredSize(boardPanelMinDimension);
@@ -136,7 +136,7 @@ public class DisplayGame extends JPanel
 		gbc_boardPanel.gridy = 2;
 		add(boardPanel, gbc_boardPanel);
 		
-		
+		//sets up the panel of pieces to promote a pawn into
 		JPanel piecesPanel = new JPanel();
 		piecesPanel.setMinimumSize(verticalPanelMinDimension);
 		piecesPanel.setPreferredSize(verticalPanelMinDimension);
@@ -150,10 +150,7 @@ public class DisplayGame extends JPanel
 		add(piecesPanel, gbc_piecesPanel);
 		
 		
-		
-		
-		
-		
+		//inits the horizontal gridmarkers
 		gbConstraints.gridy = 0;
 		horizontal = new JLabel[width];
 		for(int i = 0; i < width; i++)
@@ -166,6 +163,7 @@ public class DisplayGame extends JPanel
 			horizontalPanel.add(horizontal[i], gbConstraints);
 		}
 
+		//inits the vertical gridmarkers
 		gbConstraints.gridx = 0;
 		vertical = new JLabel[width];
 		for(int i = 0; i < width; i++)
@@ -178,6 +176,7 @@ public class DisplayGame extends JPanel
 			verticalPanel.add(vertical[i], gbConstraints);
 		}
 
+		//inits the piece promotion buttons
 		pieces = new JButton[5];
 		for(int i = 0; i < 5; i++)
 		{
@@ -190,7 +189,7 @@ public class DisplayGame extends JPanel
 			pieces[i].setActionCommand( "piece,"+i);
 			gbConstraints.gridy = i;
 			piecesPanel.add(pieces[i], gbConstraints);
-		}
+		} //no good way to automate the below
 		pieces[0].setText("\u2659");
 		pieces[0].setToolTipText("Pawn");
 		pieces[1].setText("\u2658");
@@ -202,6 +201,7 @@ public class DisplayGame extends JPanel
 		pieces[4].setText("\u2655");
 		pieces[4].setToolTipText("Queen");
 		
+		//inits the board buttons
 		boardButtons = new JButton[width][width];
 		for(int i = 0; i < width; i++)
 			for(int j = 0; j < width; j++)
@@ -221,6 +221,11 @@ public class DisplayGame extends JPanel
 		updateBoard(board);
 	}
 	
+	/**
+	 * Updates the displays board based off the internal gamestate board
+	 * @param board The board to update the display state with
+	 * @author James Whitman
+	 */
 	public void updateBoard(ManipulateChessBoard board)
 	{
 		ChessBoardLocation location = new ChessBoardLocation(0,0);
@@ -241,6 +246,13 @@ public class DisplayGame extends JPanel
 		}
 	}
 	
+	/**
+	 * Moves a piece on the displayed gameboard, adding any captured pieces to the respective Dead label
+	 * @param from The location of the piece to move
+	 * @param to The location to move a piece to
+	 * @param turnstr The next turn the game is on
+	 * @author James Whitman
+	 */
 	public void updateBoard(ChessBoardLocation from, ChessBoardLocation to, String turnstr)
 	{
 		int xF = from.getChessBoardColumnIndex();
@@ -264,6 +276,11 @@ public class DisplayGame extends JPanel
 			deadBlack.setText(deadBlack.getText() + taken);
 	}
 	
+	/**
+	 * Highlights and dehighlights a piece on the displayed gameboard
+	 * @param location The location of the piece to highlight
+	 * @author James Whitman
+	 */
 	public void updateBoard(ChessBoardLocation location)
 	{
 		int x, y;
@@ -288,6 +305,12 @@ public class DisplayGame extends JPanel
 		}
 	}
 	
+	/**
+	 * Updates the check and checkmate label
+	 * @param checkbool Whether the game is in a check state.
+	 * @param checkmate Whether the game is in a checkmate state.
+	 * @author James Whitman
+	 */
 	public void updateBoard(boolean checkbool, boolean checkmate)
 	{
 		if(checkmate)

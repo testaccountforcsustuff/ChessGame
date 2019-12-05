@@ -22,6 +22,7 @@ public class DisplayEngine extends JFrame implements ActionListener
 		setBounds( 100, 100, 800, 800 );
 		gamePanel = new DisplayGame(this, board);
 		setContentPane( gamePanel );
+		this.setResizable(false);
 	}
 	
 	@Override
@@ -73,5 +74,6 @@ public class DisplayEngine extends JFrame implements ActionListener
 	public void updateMovePiece(ChessBoardLocation from, ChessBoardLocation to, String turnstr, boolean check, boolean checkmate)
 	{
 		gamePanel.updateBoard(from, to, turnstr);
+		gamePanel.updateBoard(check, checkmate);
 	}
 }
